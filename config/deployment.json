@@ -1,5 +1,5 @@
 {
-  "moduleContent": {
+  "modulesContent": {
     "$edgeAgent": {
       "properties.desired": {
         "schemaVersion": "1.0",
@@ -10,9 +10,9 @@
             "loggingOptions": "",
             "registryCredentials": {
               "registryName": {
-                "username": "ebertraACR",
-                "password": "LtsBf=FrqFMGY/6ERgCRY0gRDvLYYYul",
-                "address": "ebertraacr.azurecr.io"
+                "username": "edgedemoacr",
+                "password": "6P+WjdFi1ZZE5B/2jKXOD/GMiIYPdRYF",
+                "address": "edgedemoacr.azurecr.io"
               }
             }
           }
@@ -34,9 +34,9 @@
               "createOptions": ""
             },
             "env": {
-                "OptimizeForPerformance": {
-                  "value": "false"
-                }
+              "OptimizeForPerformance": {
+                "value": "false"
+              }
             }
           }
         },
@@ -47,17 +47,17 @@
             "status": "running",
             "restartPolicy": "always",
             "settings": {
-              "image": "ebertraacr.azurecr.io/cameracapture:0.2.5-arm32v7",
+              "image": "edgedemoacr.azurecr.io/cameracapture:0.2.6-arm32v7",
               "createOptions": "{\"Env\":[\"VIDEO_PATH=0\",\"IMAGE_PROCESSING_ENDPOINT=http://image-classifier-service:80/image\", \"VERBOSE=TRUE\", \"RESIZE_WIDTH=256\", \"RESIZE_HEIGHT=256\"], \"HostConfig\":{\"Binds\":[\"/dev/video0:/dev/video0\"],\"Privileged\":true}}"
             }
           },
-          "sensehat-display": {
+          "lcd-display": {
             "version": "1.0",
             "type": "docker",
             "status": "running",
             "restartPolicy": "always",
             "settings": {
-              "image": "ebertraacr.azurecr.io/sensehatdisplay:0.2.11-arm32v7",
+              "image": "edgedemoacr.azurecr.io/lcddisplay:0.0.1-arm32v7",
               "createOptions": "{\"Env\":[\"THRESHOLD=0.6\"], \"HostConfig\":{\"Binds\":[\"/dev/i2c1:/dev/i2c1\"],\"Privileged\":true}}"
             }
           },
@@ -67,7 +67,7 @@
             "status": "running",
             "restartPolicy": "always",
             "settings": {
-              "image": "ebertraacr.azurecr.io/imageclassifierservice:0.2.0-arm32v7",
+              "image": "edgedemoacr.azurecr.io/imageclassifierservice:0.2.0-arm32v7",
               "createOptions": ""
             }
           }
@@ -78,7 +78,7 @@
       "properties.desired": {
         "schemaVersion": "1.0",
         "routes": {
-          "CameraCaptureToSenseHatDisplay": "FROM /messages/modules/camera-capture/outputs/output1 INTO BrokeredEndpoint(\"/modules/sensehat-display/inputs/input1\")",
+          "CameraCaptureToLCDDisplay": "FROM /messages/modules/camera-capture/outputs/output1 INTO BrokeredEndpoint(\"/modules/lcd-display/inputs/input1\")",
           "CameraCaptureToIoTHub": "FROM /messages/modules/camera-capture/outputs/output1 INTO $upstream",
           "CameraCaptureGAToIoTHub": "FROM /messages/modules/CameraCaptureGA/outputs/* INTO $upstream"
         },

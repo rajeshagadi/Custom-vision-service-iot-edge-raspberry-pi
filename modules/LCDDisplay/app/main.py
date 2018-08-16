@@ -52,7 +52,7 @@ class HubManager(object):
 
 def main():
     try:
-        print ( "Starting the SenseHat module...")
+        print ( "Starting the LCD Display module...")
 
         global DISPLAY_MANAGER
         global MESSAGE_PARSER
