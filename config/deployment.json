@@ -67,7 +67,7 @@
             "status": "running",
             "restartPolicy": "always",
             "settings": {
-              "image": "edgedemoacr.azurecr.io/imageclassifierservice:0.2.0-arm32v7",
+              "image": "edgedemoacr.azurecr.io/imageclassifierservice:0.2.4-arm32v7",
               "createOptions": ""
             }
           }
