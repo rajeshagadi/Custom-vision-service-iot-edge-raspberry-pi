@@ -1,17 +1,34 @@
-FROM resin/raspberrypi3-python:2.7
+FROM resin/raspberrypi3-debian:stretch
 
-WORKDIR /app
+#Using the stretch distribution that has python 3.5 since iothub_client.so has been compiled with python3.5
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends libboost-python1.55.0 && \
-    rm -rf /var/lib/apt/lists/* 
+RUN [ "cross-build-start" ]
 
-COPY requirements.txt ./
-RUN pip install -r requirements.txt
+# Install dependencies to run python3
+RUN apt-get update && apt-get install -y libcurl4-openssl-dev \
+    libssl1.0-dev uuid-dev python3 python3-pip \
+    libboost-python-dev
 
-COPY . .
 
-RUN useradd -ms /bin/bash moduleuser
-USER moduleuser
+COPY /build/arm32v7-requirements.txt ./
 
-ENTRYPOINT [ "python", "-u", "./main.py" ]
+RUN pip3 install --upgrade pip 
+RUN pip install --upgrade setuptools 
+RUN pip install -r arm32v7-requirements.txt
+
+#Needed by iothub_client
+RUN apt-get install -y libboost-python1.62.0
+
+#Extra dependencies to use sense-hat on this distribution
+#RUN apt-get update && apt-get install -y \
+#    libatlas-base-dev \
+#    libopenjp2-7 \
+#    libtiff-tools \
+#    i2c-tools
+
+ADD /app/ .
+ADD /build/ .
+
+RUN [ "cross-build-end" ]  
+
+ENTRYPOINT ["python3","-u", "./main.py"]

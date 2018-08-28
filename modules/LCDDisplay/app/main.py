@@ -9,8 +9,10 @@ import sys
 import iothub_client
 # pylint: disable=E0611
 # Disabling linting that is not supported by Pylint for C extensions such as iothub_client. See issue https://github.com/PyCQA/pylint/issues/1955 
-from iothub_client import IoTHubModuleClient, IoTHubClientError, IoTHubTransportProvider, IoTHubClientRetryPolicy
-from iothub_client import IoTHubMessage, IoTHubMessageDispositionResult, IoTHubError, DeviceMethodReturnValue
+from iothub_client import (IoTHubModuleClient, 
+                            IoTHubTransportProvider, 
+                            IoTHubMessageDispositionResult, 
+                            IoTHubError)
 import DisplayManager
 from DisplayManager import DisplayManager
 import MessageParser

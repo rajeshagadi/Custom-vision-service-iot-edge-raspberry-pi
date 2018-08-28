@@ -1,7 +1,7 @@
-import  /home/pi/Adafruit-Raspberry-Pi-Python-Code/Adafruit_CharLCD
-from Adafruit_CharLCD import  Adafruit_CharLCD
 import time
 from enum import Enum
+import Adafruit_CharLCD
+from Adafruit_CharLCD import  Adafruit_CharLCD
 
 class DisplayManager(object):
     def __init__(self):
